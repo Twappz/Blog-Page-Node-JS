@@ -22,6 +22,7 @@ app.use(express.static("public"));
 mongoose.connect("mongodb+srv://admin-batron:test123@cluster0.a3cli.mongodb.net/blogDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
+
 });
 
 const postSchema = {
