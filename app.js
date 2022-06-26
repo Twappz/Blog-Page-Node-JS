@@ -1,5 +1,5 @@
 //jshint esversion:6
-// This code uses the online database
+//this code uses local database
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -17,7 +17,14 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-batron:test123@cluster0.a3cli.mongodb.net/blogDB", {useNewUrlParser: true});
+
+// connect to mongodb
+mongoose.connect("mongodb://localhost:27017/blogDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// mongoose.connect("mongodb+srv://admin-batron:test123@cluster0.a3cli.mongodb.net/blogDB", {useNewUrlParser: true});
 
 const postSchema = {
   title: String,
@@ -76,6 +83,17 @@ app.get("/contact", function(req, res){
 });
 
 
-app.listen(3000, function() {
-  console.log("Server started on port 3000");
+// app.listen(3000, function() {
+//   console.log("Server started on port 3000");
+// });
+
+let port = process.env.PORT;
+if (port === null || port == "") {
+  port = 3000;
+}
+
+
+app.listen(port, function () {
+  console.log("Server started succesfully");
 });
+
